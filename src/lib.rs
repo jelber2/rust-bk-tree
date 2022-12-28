@@ -89,17 +89,7 @@ where
 
 /// A representation of a [BK-tree](https://en.wikipedia.org/wiki/BK-tree).
 #[derive(Debug)]
-pub struct BKTree<K, M = metrics::Levenshtein> {
-    /// The root node. May be empty if nothing has been put in the tree yet.
-    root: Option<BKNode<K>>,
-    /// The metric being used to determine the distance between nodes on the
-    /// tree.
-    metric: M,
-}
-
-/// A representation of a [BK-tree](https://en.wikipedia.org/wiki/BK-tree).
-#[derive(Debug)]
-pub struct BKTree<K, M = metrics::hamming> {
+pub struct BKTree<K, M = metrics::Hamming> {
     /// The root node. May be empty if nothing has been put in the tree yet.
     root: Option<BKNode<K>>,
     /// The metric being used to determine the distance between nodes on the
@@ -125,7 +115,7 @@ where
     /// ```
     /// use bk_tree::{BKTree, metrics};
     ///
-    /// let tree: BKTree<&str> = BKTree::new(metrics::Levenshtein);
+    /// let tree: BKTree<&str> = BKTree::new(metrics::Hamming);
     /// ```
     pub fn new(metric: M) -> BKTree<K, M> {
         BKTree { root: None, metric }
@@ -146,7 +136,7 @@ where
     /// ```
     /// use bk_tree::{BKTree, metrics};
     ///
-    /// let mut tree: BKTree<&str> = BKTree::new(metrics::Levenshtein);
+    /// let mut tree: BKTree<&str> = BKTree::new(metrics::Hamming);
     ///
     /// tree.add("foo");
     /// tree.add("bar");
@@ -192,7 +182,7 @@ where
     /// ```
     /// use bk_tree::{BKTree, metrics};
     ///
-    /// let mut tree: BKTree<&str> = BKTree::new(metrics::Levenshtein);
+    /// let mut tree: BKTree<&str> = BKTree::new(metrics::Hamming);
     ///
     /// tree.add("foo");
     /// tree.add("fop");
@@ -229,7 +219,7 @@ where
     /// ```
     /// use bk_tree::{BKTree, metrics};
     ///
-    /// let mut tree: BKTree<&str> = BKTree::new(metrics::Levenshtein);
+    /// let mut tree: BKTree<&str> = BKTree::new(metrics::Hamming);
     ///
     /// tree.add("foo");
     /// tree.add("fop");
@@ -258,7 +248,7 @@ impl<K, M: Metric<K>> Extend<K> for BKTree<K, M> {
     /// ```
     /// use bk_tree::{BKTree, metrics};
     ///
-    /// let mut tree: BKTree<&str> = BKTree::new(metrics::Levenshtein);
+    /// let mut tree: BKTree<&str> = BKTree::new(metrics::Hamming);
     ///
     /// tree.extend(vec!["foo", "bar"]);
     /// ```
@@ -271,7 +261,7 @@ impl<K, M: Metric<K>> Extend<K> for BKTree<K, M> {
 
 impl<K: AsRef<str>> Default for BKTree<K> {
     fn default() -> BKTree<K> {
-        BKTree::new(metrics::Levenshtein)
+        BKTree::new(metrics::Hamming)
     }
 }
 

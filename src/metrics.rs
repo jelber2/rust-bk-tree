@@ -5,7 +5,7 @@ use Metric;
 
 extern crate triple_accel;
 use self::triple_accel::{hamming};
-use self::triple_accel::{hamming_search_naive_with_opts};
+use self::triple_accel::hamming::{hamming_search_naive_with_opts};
 use metrics::triple_accel::SearchType::Best;
 
 /// This calculates the Levenshtein distance between two strings.

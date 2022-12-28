@@ -97,6 +97,16 @@ pub struct BKTree<K, M = metrics::Levenshtein> {
     metric: M,
 }
 
+/// A representation of a [BK-tree](https://en.wikipedia.org/wiki/BK-tree).
+#[derive(Debug)]
+pub struct BKTree<K, M = metrics::hamming> {
+    /// The root node. May be empty if nothing has been put in the tree yet.
+    root: Option<BKNode<K>>,
+    /// The metric being used to determine the distance between nodes on the
+    /// tree.
+    metric: M,
+}
+
 impl<K, M> BKTree<K, M>
 where
     M: Metric<K>,

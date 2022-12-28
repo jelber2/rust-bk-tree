@@ -5,6 +5,7 @@ use Metric;
 
 extern crate triple_accel;
 use self::triple_accel::{hamming};
+use metrics::triple_accel::SearchType::Best;
 
 /// This calculates the Levenshtein distance between two strings.
 ///
@@ -37,6 +38,6 @@ impl<K: AsRef<str> + ?Sized> Metric<K> for Hamming
     fn threshold_distance(&self, a: &K, b: &K, threshold: u32) -> Option<u32> {
         let a_bytes = a.as_ref().as_bytes();
         let b_bytes = b.as_ref().as_bytes();
-        hamming(a_bytes, b_bytes, threshold, Best)
+        hamming_search_naive_with_opts(a_bytes, b_bytes, threshold, Best)
     }
 }
